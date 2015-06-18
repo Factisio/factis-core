@@ -1,0 +1,17 @@
+{
+  "name": "factis-core",
+  "version": "1.0.0",
+  "description": "Factis core",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Vincent Lecrubier <vincent.lecrubier@gmail.com> (http://www.vincentlecrubier.fr/)",
+  "license": "BSD",
+  "devDependencies": {
+    "jest-cli": "^0.4.5"
+  },
+  "jest" : {
+    "collectCoverage":"true"
+  }
+}
