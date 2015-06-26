@@ -1,17 +1,40 @@
 {
   "name": "factis-core",
   "version": "1.0.0",
-  "description": "Factis core",
+  "description": "Core of the factis system",
   "main": "index.js",
+  "dependencies": {},
   "scripts": {
     "test": "jest"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Factisio/factis-core.git"
+  },
+  "keywords": [
+    "graph",
+    "database",
+    "hexastore",
+    "graph",
+    "rdf",
+    "json",
+    "triple",
+    "pure",
+    "database",
+    "triple",
+    "store",
+    "js"
+  ],
   "author": "Vincent Lecrubier <vincent.lecrubier@gmail.com> (http://www.vincentlecrubier.fr/)",
-  "license": "BSD",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/Factisio/factis-core/issues"
+  },
   "devDependencies": {
     "jest-cli": "^0.4.5"
   },
   "jest" : {
     "collectCoverage":"true"
-  }
+  },
+  "homepage": "https://github.com/Factisio/factis-core#readme"
 }
