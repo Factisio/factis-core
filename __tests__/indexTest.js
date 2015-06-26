@@ -5,8 +5,8 @@
  */
 
 jest
-  .dontMock('../engine.js')
-  .dontMock('../api.js')
+// .dontMock('../engine.js')
+// .dontMock('../api.js')
   .dontMock('../index.js');
 
 var core = require('../index.js');
@@ -106,6 +106,82 @@ describe('Core', function() {
 
   describe('Query Engine', function() {
 
+    it('xxx one', function() {
+      expect(core.query(
+        core.fact(core.the("x"), core.the("y"), core.the("z")), {
+          queryXXX: function(e) {
+            return [
+              ["a", "b", "c"]
+            ];
+          }
+        }
+      )).toEqual([{
+        "x": "a",
+        "y": "b",
+        "z": "c"
+      }]);
+    });
+
+    it('xxx infinity', function() {
+      expect(core.query(
+        core.fact(core.the("x"), core.the("y"), core.the("z")), {
+          queryXXX: function(e) {
+            return null;
+          }
+        }
+      )).toBeNull();
+    });
+
+    it('xxo one', function() {
+      expect(core.query(
+        core.fact(core.the("x"), core.the("y"), "c"), {
+          queryXXO: function(e) {
+            return [
+              ["a", "b", "c"]
+            ];
+          }
+        }
+      )).toEqual([{
+        "x": "a",
+        "y": "b"
+      }]);
+    });
+
+    it('xxo infinity', function() {
+      expect(core.query(
+        core.fact(core.the("x"), core.the("y"), "c"), {
+          queryXXO: function(e) {
+            return null;
+          }
+        }
+      )).toBeNull();
+    });
+
+    it('xpx one', function() {
+      expect(core.query(
+        core.fact(core.the("x"), "b", core.the("z")), {
+          queryXPX: function(e) {
+            return [
+              ["a", "b", "c"]
+            ];
+          }
+        }
+      )).toEqual([{
+        "x": "a",
+        "z": "c"
+      }]);
+    });
+
+    it('xpx infinity', function() {
+      expect(core.query(
+        core.fact(core.the("x"), "b", core.the("z")), {
+          queryXPX: function(e) {
+            return null;
+          }
+        }
+      )).toBeNull();
+    });
+
     it('xpo one', function() {
       expect(core.query(
         core.fact(core.the("x"), "b", "c"), {
@@ -130,7 +206,106 @@ describe('Core', function() {
       )).toBeNull();
     });
 
-    it('fact(the(x),the(b),the(c))', function() {
+    it('sxx one', function() {
+      expect(core.query(
+        core.fact("a", core.the("y"), core.the("z")), {
+          querySXX: function(e) {
+            return [
+              ["a", "b", "c"]
+            ];
+          }
+        }
+      )).toEqual([{
+        "y": "b",
+        "z": "c"
+      }]);
+    });
+
+    it('sxx infinity', function() {
+      expect(core.query(
+        core.fact("a", core.the("y"), core.the("z")), {
+          querySXX: function(e) {
+            return null;
+          }
+        }
+      )).toBeNull();
+    });
+
+    it('sxo one', function() {
+      expect(core.query(
+        core.fact("a", core.the("y"), "c"), {
+          querySXO: function(e) {
+            return [
+              ["a", "b", "c"]
+            ];
+          }
+        }
+      )).toEqual([{
+        "y": "b"
+      }]);
+    });
+
+    it('sxo infinity', function() {
+      expect(core.query(
+        core.fact("a", core.the("y"), "c"), {
+          querySXO: function(e) {
+            return null;
+          }
+        }
+      )).toBeNull();
+    });
+
+    it('spx one', function() {
+      expect(core.query(
+        core.fact("a", "b", core.the("z")), {
+          querySPX: function(e) {
+            return [
+              ["a", "b", "c"]
+            ];
+          }
+        }
+      )).toEqual([{
+        "z": "c"
+      }]);
+    });
+
+    it('spx infinity', function() {
+      expect(core.query(
+        core.fact("a", "b", core.the("z")), {
+          querySPX: function(e) {
+            return null;
+          }
+        }
+      )).toBeNull();
+    });
+
+    it('spo one', function() {
+      expect(core.query(
+        core.fact("a", "b", "c"), {
+          querySPO: function(e) {
+            return [
+              ["a", "b", "c"]
+            ];
+          }
+        }
+      )).toEqual([{}]);
+    });
+
+    it('xpo infinity', function() {
+      expect(core.query(
+        core.fact("a", "b", "c"), {
+          querySPO: function(e) {
+            return null;
+          }
+        }
+      )).toBeNull();
+    });
+
+  });
+
+  describe('Complex queries', function() {
+
+    it('fact', function() {
       expect(core.query(
         core.fact(core.the("x"), core.the("y"), core.the("z")), {
           queryXXX: function(e) {
@@ -145,6 +320,128 @@ describe('Core', function() {
         "z": "c"
       }]);
     });
+
+    it('and', function() {
+      expect(core.query(
+        core.and(
+          core.fact(core.the("x"), "b", "c"),
+          core.fact("a", core.the("y"), core.the("z"))
+        ), {
+          queryXXX: function(e) {
+            return [
+              ["a", "b", "c"]
+            ];
+          },
+          queryXXO: function(e) {
+            return [
+              ["a", "b", "c"]
+            ];
+          },
+          queryXPX: function(e) {
+            return [
+              ["a", "b", "c"]
+            ];
+          },
+          queryXPO: function(e) {
+            return [
+              ["a", "b", "c"]
+            ];
+          },
+          querySXX: function(e) {
+            return [
+              ["a", "b", "c"]
+            ];
+          },
+          querySXO: function(e) {
+            return [
+              ["a", "b", "c"]
+            ];
+          },
+          querySPX: function(e) {
+            return [
+              ["a", "b", "c"]
+            ];
+          },
+          querySPO: function(e) {
+            return [
+              ["a", "b", "c"]
+            ];
+          }
+        }
+      )).toEqual([{
+        "x": "a",
+        "y": "b",
+        "z": "c"
+      }]);
+    });
+
+
+    it('or', function() {
+      expect(core.query(
+        core.or(
+          core.fact(core.the("x"), "b", "c"),
+          core.fact("a", core.the("y"), core.the("z"))
+        ), {
+          queryXPO: function(e) {
+            return [
+              ["a", "b", "c"]
+            ];
+          },
+          querySXX: function(e) {
+            return [
+              ["a", "b", "c"]
+            ];
+          }
+        }
+      )).toEqual([{
+        "x": "a"
+      }, {
+        "y": "b",
+        "z": "c"
+      }]);
+    });
+
+
+    it('not', function() {
+      expect(core.query(
+        core.not(
+          core.fact(core.the("x"), "b", "c")
+        ), {
+          queryXPO: function(e) {
+            return [
+
+            ];
+          }
+        }
+      )).toEqual([{}]);
+    });
+
+    it('not', function() {
+      expect(core.query(
+        core.not(
+          core.fact(core.the("x"), "b", "c")
+        ), {
+          queryXPO: function(e) {
+            return [
+
+            ];
+          }
+        }
+      )).toEqual([{}]);
+
+      expect(core.query(
+        core.not(
+          core.fact(core.the("x"), "b", "c")
+        ), {
+          queryXPO: function(e) {
+            return [
+              ["a", "b", "c"]
+            ];
+          }
+        }
+      )).toEqual([]);
+    });
+
 
   });
 
